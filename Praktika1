@@ -1,0 +1,99 @@
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Вызов всех заданий
+        Task1();
+        Task2();
+        Task3();
+        Task4();
+    }
+
+    static void Task1()
+    {
+        Console.WriteLine("Задание 1:");
+        Console.WriteLine("Введите три целых числа через пробел:");
+        int[] numbers = Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse);
+
+        Console.WriteLine("Введите номер студента в списке группы:");
+        int studentNumber = int.Parse(Console.ReadLine());
+        int N = studentNumber % 10; // Последняя цифра номера студента
+
+        var filteredNumbers = numbers.Where(num => num >= 1 && num <= 10 + N).ToArray();
+        Console.WriteLine("Числа из интервала [1, 10+N]: " + string.Join(", ", filteredNumbers));
+        Console.WriteLine();
+    }
+
+    static void Task2()
+    {
+        Console.WriteLine("Задание 2:");
+        Console.WriteLine("Введите три стороны треугольника через пробел:");
+        double[] sides = Array.ConvertAll(Console.ReadLine().Split(' '), double.Parse);
+
+        if (IsValidTriangle(sides[0], sides[1], sides[2]))
+        {
+            double perimeter = sides.Sum();
+            double semiPerimeter = perimeter / 2;
+            double area = Math.Sqrt(semiPerimeter * (semiPerimeter - sides[0]) * (semiPerimeter - sides[1]) * (semiPerimeter - sides[2]));
+            Console.WriteLine($"Периметр треугольника: {perimeter}");
+            Console.WriteLine($"Площадь треугольника: {area}");
+        }
+        else
+        {
+            Console.WriteLine("Треугольник с такими сторонами не существует.");
+        }
+        Console.WriteLine();
+    }
+
+    static bool IsValidTriangle(double a, double b, double c)
+    {
+        return a + b > c && a + c > b && b + c > a;
+    }
+
+    static void Task3()
+    {
+        Console.WriteLine("Задание 3:");
+        Console.WriteLine("Введите номер студента в списке группы:");
+        int studentNumber = int.Parse(Console.ReadLine());
+        int length = 10 + (studentNumber % 10);
+
+        int[] array = new int[length];
+        Random rand = new Random();
+        for (int i = 0; i < length; i++)
+        {
+            array[i] = rand.Next(-100, 100); // Генерация случайных чисел
+        }
+
+        Console.WriteLine("Сгенерированный массив: " + string.Join(", ", array));
+        Console.WriteLine("Минимальное значение: " + array.Min());
+        Console.WriteLine("Максимальное значение: " + array.Max());
+        Console.WriteLine();
+    }
+
+    static void Task4()
+    {
+        Console.WriteLine("Задание 4:");
+        Console.WriteLine("Введите номер студента в списке группы:");
+        int studentNumber = int.Parse(Console.ReadLine());
+        int length = 10 + (studentNumber % 10);
+
+        int[] arrayX = new int[length];
+        Random rand = new Random();
+        for (int i = 0; i < length; i++)
+        {
+            arrayX[i] = rand.Next(-100, 100); // Генерация случайных чисел
+        }
+
+        Console.WriteLine("Введите число M:");
+        int M = int.Parse(Console.ReadLine());
+
+        int[] arrayY = arrayX.Where(num => Math.Abs(num) > M).ToArray();
+
+        Console.WriteLine("Массив X: " + string.Join(", ", arrayX));
+        Console.WriteLine("Массив Y: " + string.Join(", ", arrayY));
+        Console.WriteLine();
+    }
+}
